@@ -10,13 +10,13 @@ terraform {
 # Set the variable value in *.tfvars file
 # or using -var="do_token=..." CLI option
 variable "do_token" {}
+variable "pvt_key" {}
 
 # Configure the DigitalOcean Provider
 provider "digitalocean" {
   token = var.do_token
 }
 
-# Create a web server
-resource "digitalocean_droplet" "web" {
-  # ...
+data "digitalocean_ssh_key" "terraform" {
+  name = "pchmykh@mac"
 }
