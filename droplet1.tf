@@ -1,4 +1,4 @@
-resource "digitalocean_droplet" "www-1" {
+resource "digitalocean_droplet" "droplet1" {
   image = "ubuntu-24-10-x64"
   name = "www-1"
   region = "fra1"
