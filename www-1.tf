@@ -4,7 +4,8 @@ resource "digitalocean_droplet" "www-1" {
   region = "fra1"
   size = "s-1vcpu-512mb-10gb"
   ssh_keys = [
-    data.digitalocean_ssh_key.terraform.id
+    data.digitalocean_ssh_key.terraform1.id,
+    data.digitalocean_ssh_key.terraform2.id
   ]
   connection {
     host = self.ipv4_address

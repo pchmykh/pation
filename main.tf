@@ -17,7 +17,14 @@ provider "digitalocean" {
   token = var.do_token
 }
 
-data "digitalocean_ssh_key" "terraform" {
+data "digitalocean_ssh_key" "terraform1" {
   name = "pchmykh@mac"
+}
+
+data "digitalocean_ssh_key" "terraform2" {
   name = "pchmykh@fedora"
+}
+
+data "digitalocean_project" "test" {
+  name ="test"
 }
