@@ -1,3 +1,4 @@
+# creating droplet
 resource "digitalocean_droplet" "droplet1" {
   image = var.droplet_config.image
   name = var.droplet_config.name
@@ -9,6 +10,7 @@ resource "digitalocean_droplet" "droplet1" {
   #    data.digitalocean_ssh_key.terraform2.id
   #]
 
+# SSH connection data for later provisioning
   connection {
     host = self.ipv4_address
     user = "root"

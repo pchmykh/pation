@@ -7,8 +7,7 @@ terraform {
   }
 }
 
-# Set the variable value in *.tfvars file
-# or using -var="do_token=..." CLI option
+# Values was added to *.tfvars file
 variable "do_token" {}
 variable "pvt_key" {}
 
