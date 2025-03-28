@@ -19,4 +19,5 @@ provider "digitalocean" {
 
 data "digitalocean_ssh_key" "terraform" {
   name = "pchmykh@mac"
+  name = "pchmykh@fedora"
 }
