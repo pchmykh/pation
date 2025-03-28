@@ -1,12 +1,13 @@
 resource "digitalocean_droplet" "droplet1" {
-  image = "ubuntu-24-10-x64"
-  name = "droplet1"
-  region = "fra1"
-  size = "s-1vcpu-512mb-10gb"
-  ssh_keys = [
-    data.digitalocean_ssh_key.terraform1.id,
-    data.digitalocean_ssh_key.terraform2.id
-  ]
+  image = var.droplet_config.image
+  name = var.droplet_config.name
+  region = var.droplet_config.region
+  size = var.droplet_config.size
+  ssh_keys = [for key in var.ssh_keys : data.digitalocean_ssh_key.keys[key].id]
+  # before moving ssk keys to var file
+  #    data.digitalocean_ssh_key.terraform1.id,
+  #    data.digitalocean_ssh_key.terraform2.id
+  #]
 
   connection {
     host = self.ipv4_address
@@ -15,21 +16,23 @@ resource "digitalocean_droplet" "droplet1" {
     private_key = file(var.pvt_key)
     timeout = "2m"
   }
-  # Example of package installation
-  #  provisioner "remote-exec" {
-  #    inline = [
-  #      "export PATH=$PATH:/usr/bin",
-  #      # install nginx
-  #      "sudo apt-get update",
-  #      "sudo apt-get -y install nginx"
-  #    ]
-  #  }
 }
 
-# move droplet to 'test' project after creating
-resource "digitalocean_project_resources" "test_assigment" {
-  project = data.digitalocean_project.test.id
-  resources   = [
-      digitalocean_droplet.droplet1.urn
-    ]
+# move droplet to 'test' project after project creating
+resource "digitalocean_project_resources" "project_test_assigment" {
+  depends_on = [digitalocean_project.test]
+  project = digitalocean_project.test.id
+  resources   = [digitalocean_droplet.droplet1.urn]
+}
+
+# create droplet description file
+resource "local_file" "droplet_info" {
+  filename = "${digitalocean_droplet.droplet1.name}_info.txt"
+  content  = <<-EOT
+    Name: ${digitalocean_droplet.droplet1.name}
+    IP: ${digitalocean_droplet.droplet1.ipv4_address}
+    Region: ${digitalocean_droplet.droplet1.region}
+    Size: ${digitalocean_droplet.droplet1.size}
+    Created: ${timestamp()}
+  EOT
 }
