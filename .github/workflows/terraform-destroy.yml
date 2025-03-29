@@ -1,0 +1,33 @@
+name: 'Terraform Destroy'
+
+on:
+  workflow_dispatch:  # Allows manual triggering from GitHub UI?
+
+permissions:
+  contents: read
+
+jobs:
+  terraform-destroy:
+    name: 'Destroy Infrastructure'
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup SSH
+      uses: webfactory/ssh-agent@v0.7.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Terraform Destroy
+      env:
+        TF_VAR_do_token: ${{ secrets.DIGITALOCEAN_TOKEN }}
+      run: terraform destroy -auto-approve -input=false
