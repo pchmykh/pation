@@ -85,8 +85,16 @@ jobs:
       uses: hashicorp/setup-terraform@v1
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    # Added DO Space creds
     - name: Terraform Init
-      run: terraform init
+      env:
+	AWS_ACESS_KEY_ID: ${{ secrect.AWS_ACCESS_KEY_ID }}
+	AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: |
+	terraform init \
+          -backend-config="access_key=$AWS_ACCESS_KEY_ID" \
+          -backend-config="secret_key=$AWS_SECRET_ACCESS_KEY" \
+          -input=false
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
