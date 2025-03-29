@@ -90,6 +90,7 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_ENDPOINT_URL: "https://fra1.digitaloceanspaces.com"
       run: |
         terraform init \
           -backend-config="access_key=$AWS_ACCESS_KEY_ID" \
