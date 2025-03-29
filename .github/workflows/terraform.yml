@@ -81,8 +81,8 @@ jobs:
 #      with:
 #        cli_config_credentials_token: ${{ secrets.DIGITALOCEAN_TOKEN }}
     # Adding TF setup
-     - name: Setup Terraform
-       uses: hashicorp/setup-terraform@v1
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
