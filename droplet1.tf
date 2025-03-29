@@ -15,7 +15,8 @@ resource "digitalocean_droplet" "droplet1" {
     host        = self.ipv4_address
     user        = "root"
     type        = "ssh"
-    private_key = file(var.pvt_key)
+# Commented next line due to ssh agent implementation
+#    private_key = file(var.pvt_key)
     timeout     = "2m"
   }
 }

@@ -9,7 +9,8 @@ terraform {
 
 # Values was added to *.tfvars file
 variable "do_token" {}
-variable "pvt_key" {}
+# Comented next line due to ssh agent implementation
+#variable "pvt_key" {}
 
 # Configure the DigitalOcean Provider
 provider "digitalocean" {
