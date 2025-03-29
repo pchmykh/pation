@@ -90,13 +90,13 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_ENDPOINT_URL: "https://fra1.digitaloceanspaces.com"
       run: |
         terraform init \
           -backend-config="access_key=$AWS_ACCESS_KEY_ID" \
           -backend-config="secret_key=$AWS_SECRET_ACCESS_KEY" \
+          -backend-config="endpoints.s3=https://fra1.digitaloceanspaces.com" \
+          -backend-config="use_path_style=true" \
           -input=false
-
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
       run: terraform fmt -check
