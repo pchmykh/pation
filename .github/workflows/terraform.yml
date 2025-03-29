@@ -74,11 +74,15 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+## Commenting these due not using TF cloud
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-      with:
-        cli_config_credentials_token: ${{ secrets.digitalocean_token }}
+#    - name: Setup Terraform
+#      uses: hashicorp/setup-terraform@v1
+#      with:
+#        cli_config_credentials_token: ${{ secrets.DIGITALOCEAN_TOKEN }}
+    # Adding TF setup
+     - name: Setup Terraform
+       uses: hashicorp/setup-terraform@v1
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
@@ -91,7 +95,7 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       env:
-        TF_VAR_do_token: ${{ secrets.digitalocean_token }}
+        TF_VAR_do_token: ${{ secrets.DIGITALOCEAN_TOKEN }}
       run: terraform plan -input=false
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
@@ -99,5 +103,5 @@ jobs:
     - name: Terraform Apply
       if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
       env:
-        TF_VAR_do_token: ${{ secrets.digitalocean_token }}
+        TF_VAR_do_token: ${{ secrets.DIGITALOCEAN_TOKEN }}
       run: terraform apply -auto-approve -input=false

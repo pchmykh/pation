@@ -18,6 +18,7 @@ resource "digitalocean_droplet" "droplet1" {
 # Commented next line due to ssh agent implementation
 #    private_key = file(var.pvt_key)
     timeout     = "2m"
+    agent	= true
   }
 }
 
