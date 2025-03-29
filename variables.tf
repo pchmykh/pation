@@ -1,7 +1,7 @@
 variable "droplet_config" {
   type = object({
     image  = string
-    name   = string 
+    name   = string
     region = string
     size   = string
   })
