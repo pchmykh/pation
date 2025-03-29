@@ -5,20 +5,20 @@ resource "digitalocean_droplet" "droplet1" {
   region   = var.droplet_config.region
   size     = var.droplet_config.size
   ssh_keys = [for key in var.ssh_keys : data.digitalocean_ssh_key.keys[key].id]
-  # before moving ssh keys to var file
-  #    data.digitalocean_ssh_key.terraform1.id,
-  #    data.digitalocean_ssh_key.terraform2.id
-  #]
+# before moving ssh keys to var file
+#    data.digitalocean_ssh_key.terraform1.id,
+#    data.digitalocean_ssh_key.terraform2.id
+#]
 
-  # SSH connection data for later provisioning
+# SSH connection data for later provisioning
   connection {
-    host        = self.ipv4_address
-    user        = "root"
-    type        = "ssh"
-# Commented next line due to ssh agent implementation
-#    private_key = file(var.pvt_key)
-    timeout     = "2m"
-    agent	= true
+    host = self.ipv4_address
+    user = "root"
+    type = "ssh"
+    # Commented next line due to ssh agent implementation
+    #    private_key = file(var.pvt_key)
+    timeout = "2m"
+    agent   = true
   }
 }
 
@@ -33,10 +33,10 @@ resource "digitalocean_project_resources" "project_test_assigment" {
 resource "local_file" "droplet_info" {
   filename = "${digitalocean_droplet.droplet1.name}_info.txt"
   content  = <<-EOT
-Name: ${digitalocean_droplet.droplet1.name}
-IP: ${digitalocean_droplet.droplet1.ipv4_address}
-Region: ${digitalocean_droplet.droplet1.region}
-Size: ${digitalocean_droplet.droplet1.size}
-Created: ${timestamp()}
-EOT
+    Name: ${digitalocean_droplet.droplet1.name}
+    IP: ${digitalocean_droplet.droplet1.ipv4_address}
+    Region: ${digitalocean_droplet.droplet1.region}
+    Size: ${digitalocean_droplet.droplet1.size}
+    Created: ${timestamp()}
+  EOT
 }
