@@ -3,7 +3,7 @@ terraform {
     bucket                      = "your-project-tfstate"
     key                         = "terraform.tfstate"
     region                      = "us-east-1" # Dummy value
-    endpoint.s3                 = "https://fra1.digitaloceanspaces.com"
+    endpoint                    = "https://fra1.digitaloceanspaces.com"
     skip_credentials_validation = true
     skip_region_validation      = true
     skip_metadata_api_check     = true
