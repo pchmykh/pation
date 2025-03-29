@@ -88,7 +88,7 @@ jobs:
     # Added DO Space creds
     - name: Terraform Init
       env:
-	AWS_ACCESS_KEY_ID: ${{ secrect.AWS_ACCESS_KEY_ID }}
+	AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
 	AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
 	terraform init \
