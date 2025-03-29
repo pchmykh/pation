@@ -29,14 +29,14 @@ resource "digitalocean_project_resources" "project_test_assigment" {
   resources  = [digitalocean_droplet.droplet1.urn]
 }
 
-# create droplet description file
-resource "local_file" "droplet_info" {
-  filename = "${digitalocean_droplet.droplet1.name}_info.txt"
-  content  = <<-EOT
-    Name: ${digitalocean_droplet.droplet1.name}
-    IP: ${digitalocean_droplet.droplet1.ipv4_address}
-    Region: ${digitalocean_droplet.droplet1.region}
-    Size: ${digitalocean_droplet.droplet1.size}
-    Created: ${timestamp()}
-  EOT
-}
+# create droplet description file, commenting for now due to cloud usage
+#resource "local_file" "droplet_info" {
+#  filename = "${digitalocean_droplet.droplet1.name}_info.txt"
+#  content  = <<-EOT
+#    Name: ${digitalocean_droplet.droplet1.name}
+#    IP: ${digitalocean_droplet.droplet1.ipv4_address}
+#    Region: ${digitalocean_droplet.droplet1.region}
+#    Size: ${digitalocean_droplet.droplet1.size}
+#    Created: ${timestamp()}
+#  EOT
+#}
