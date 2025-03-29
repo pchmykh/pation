@@ -1,3 +1,8 @@
+## output for droplet1.tf file
+#output "droplet_id" {
+#  value = digitalocean_droplet.droplet1.id
+#}
+
 # output for project.tf file
 output "project_id" {
   value = digitalocean_project.test.id

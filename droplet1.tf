@@ -5,7 +5,7 @@ resource "digitalocean_droplet" "droplet1" {
   region = var.droplet_config.region
   size = var.droplet_config.size
   ssh_keys = [for key in var.ssh_keys : data.digitalocean_ssh_key.keys[key].id]
-  # before moving ssk keys to var file
+  # before moving ssh keys to var file
   #    data.digitalocean_ssh_key.terraform1.id,
   #    data.digitalocean_ssh_key.terraform2.id
   #]
@@ -22,7 +22,7 @@ resource "digitalocean_droplet" "droplet1" {
 
 # move droplet to 'test' project after project creating
 resource "digitalocean_project_resources" "project_test_assigment" {
-  depends_on = [digitalocean_project.test]
+  depends_on = [digitalocean_project.test, digitalocean_droplet.droplet1]
   project = digitalocean_project.test.id
   resources   = [digitalocean_droplet.droplet1.urn]
 }
